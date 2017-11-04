@@ -25,7 +25,7 @@ ko:
       within_reach_title: 언제나 유저의 곁에서
     find_another_instance: 다른 인스턴스 찾기
     generic_description: "%{domain} 은 Mastodon의 인스턴스 입니다."
-    hosted_on: Mastodon hosted on %{domain}
+    hosted_on: %{domain}에서 호스트중인 Mastodon
     learn_more: 자세히
     other_instances: 다른 인스턴스
     source_code: 소스 코드
