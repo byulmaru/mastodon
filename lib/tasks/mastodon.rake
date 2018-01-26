@@ -95,6 +95,19 @@ namespace :mastodon do
     puts
   end
 
+  desc 'Add a user for 3rd party app integration'
+  task add_user_planb: :environment do
+    email = ENV.fetch('REGISTER_EMAIL')
+    username = ENV.fetch('REGISTER_USERNAME')
+    password = ENV.fetch('REGISTER_PASSWORD')
+    user = User.new(email: email, password: password, confirmed_at: Time.now.utc, account_attributes: { username: username })
+    if user.save
+      puts 'success'
+    else
+      puts 'error'
+    end
+  end
+
   namespace :media do
     desc 'Removes media attachments that have not been assigned to any status for longer than a day (deprecated)'
     task clear: :environment do
