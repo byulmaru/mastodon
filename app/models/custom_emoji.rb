@@ -45,7 +45,7 @@ class CustomEmoji < ApplicationRecord
   after_commit :remove_entity_cache
 
   def local?
-    domain.nil?
+    domain.nil? || domain == 'twingyeo.kr'
   end
 
   def object_type
