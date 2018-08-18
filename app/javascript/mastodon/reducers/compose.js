@@ -80,7 +80,10 @@ function clearAll(state) {
     map.set('spoiler_text', '');
     map.set('is_submitting', false);
     map.set('in_reply_to', null);
-    map.set('privacy', map.get('privacy') || state.get('default_privacy'));
+    let privacy = map.get('privacy');
+    if(!privacy || privacy === 'direct') {
+      map.set('privacy', state.get('default_privacy'));
+    }
     map.set('sensitive', false);
     map.update('media_attachments', list => list.clear());
     map.set('idempotencyKey', uuid());
