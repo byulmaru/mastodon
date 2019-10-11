@@ -25,4 +25,4 @@ build:
     - master
 
 after_script:
-  - 'curl -H "Content-Type: application/json" -X POST -d \'{"username": "mastodon", "content": "이미지 빌드 완료!"}\' $CI_DISCORD_WEBHOOK'
+  - curl -H "Content-Type: application/json" -X POST -d \'{"username": "mastodon", "content": "이미지 빌드 완료!"}\' $CI_DISCORD_WEBHOOK
