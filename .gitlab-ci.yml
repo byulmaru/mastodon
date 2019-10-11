@@ -23,3 +23,6 @@ build:
     - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
   except:
     - master
+
+after_script:
+  - 'curl -H "Content-Type: application/json" -X POST -d \'{"username": "mastodon", "content": "이미지 빌드 완료!"}\' $CI_DISCORD_WEBHOOK'
