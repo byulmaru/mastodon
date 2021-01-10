@@ -102,10 +102,7 @@ function clearAll(state) {
     map.set('is_submitting', false);
     map.set('is_changing_upload', false);
     map.set('in_reply_to', null);
-    let privacy = map.get('privacy');
-    if(!privacy || privacy === 'direct' || localStorage.getItem('forceResetPrivacy')) {
-      map.set('privacy', state.get('default_privacy'));
-    }
+    map.set('privacy', state.get('default_privacy'));
     map.set('sensitive', false);
     map.update('media_attachments', list => list.clear());
     map.set('poll', null);
