@@ -12,8 +12,7 @@ build-master:
   stage: build
   script:
     - docker buildx create --use
-    - docker buildx build --pull --platform linux/arm64/v8,linux/amd64 -t "$CI_REGISTRY_IMAGE" .
-    - docker push "$CI_REGISTRY_IMAGE"
+    - docker buildx build --push --pull --platform linux/arm64/v8,linux/amd64 -t "$CI_REGISTRY_IMAGE" .
   only:
     - master
 
@@ -21,7 +20,6 @@ build:
   stage: build
   script:
     - docker buildx create --use
-    - docker buildx build --pull --platform linux/arm64/v8,linux/amd64 -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" .
-    - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
+    - docker buildx build --push --pull --platform linux/arm64/v8,linux/amd64 -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" .
   except:
     - master
