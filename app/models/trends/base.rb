@@ -2,6 +2,7 @@
 
 class Trends::Base
   include Redisable
+  include LanguagesHelper
 
   class_attribute :default_options
 
@@ -32,16 +33,16 @@ class Trends::Base
     raise NotImplementedError
   end
 
-  def get(*)
-    raise NotImplementedError
+  def query
+    Trends::Query.new(key_prefix, klass)
   end
 
-  def score(id)
-    redis.zscore("#{key_prefix}:all", id) || 0
+  def score(id, locale: nil)
+    redis.zscore([key_prefix, 'all', locale].compact.join(':'), id) || 0
   end
 
-  def rank(id)
-    redis.zrevrank("#{key_prefix}:allowed", id)
+  def rank(id, locale: nil)
+    redis.zrevrank([key_prefix, 'allowed', locale].compact.join(':'), id)
   end
 
   def currently_trending_ids(allowed, limit)
@@ -64,12 +65,27 @@ class Trends::Base
   end
 
   def trim_older_items
-    redis.zremrangebyscore("#{key_prefix}:all", '-inf', '(1')
-    redis.zremrangebyscore("#{key_prefix}:allowed", '-inf', '(1')
+    redis.zremrangebyscore("#{key_prefix}:all", '-inf', '(0.3')
+    redis.zremrangebyscore("#{key_prefix}:allowed", '-inf', '(0.3')
   end
 
   def score_at_rank(rank)
     redis.zrevrange("#{key_prefix}:allowed", 0, rank, with_scores: true).last&.last || 0
+  end
+
+  # @param [Integer] id
+  # @param [Float] score
+  # @param [Hash<String, Boolean>] subsets
+  def add_to_and_remove_from_subsets(id, score, subsets = {})
+    subsets.each_key do |subset|
+      key = [key_prefix, subset].compact.join(':')
+
+      if score.positive? && subsets[subset]
+        redis.zadd(key, score, id)
+      else
+        redis.zrem(key, id)
+      end
+    end
   end
 
   private
