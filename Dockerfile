@@ -59,8 +59,9 @@ RUN cd /opt/mastodon && \
   bundle config set --local deployment 'true' && \
   bundle config set --local without 'development test' && \
   bundle config set silence_root_warning true && \
-	bundle install -j"$(nproc)" && \
-	yarn install --pure-lockfile
+	bundle install -j"$(nproc)"
+
+RUN yarn install --frozen-lockfile --network-timeout 1000000
 
 FROM ubuntu:20.04
 
