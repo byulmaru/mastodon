@@ -7,11 +7,21 @@ services:
 
 before_script:
   - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+  - docker buildx create --use
+
+stages:
+  - build-dep
+  - build
+
+build-dep:
+  stage: build-dep
+  script:
+    - docker pull "$CI_REGISTRY_IMAGE:build-dep"
+    - docker buildx build --push --platform linux/arm64/v8 --target build-dep -t "$CI_REGISTRY_IMAGE:build-dep" .
 
 build-master:
   stage: build
   script:
-    - docker buildx create --use
     - docker buildx build --push --platform linux/arm64/v8 -t "$CI_REGISTRY_IMAGE" .
   only:
     - master
@@ -19,7 +29,6 @@ build-master:
 build:
   stage: build
   script:
-    - docker buildx create --use
     - docker buildx build --push --platform linux/arm64/v8 -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" .
   except:
     - master
