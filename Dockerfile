@@ -113,6 +113,7 @@ USER mastodon
 
 # Precompile assets
 RUN cd ~ && \
+  yarn config set network-timeout 1000000 -g && \
 	OTP_SECRET=precompile_placeholder SECRET_KEY_BASE=precompile_placeholder rails assets:precompile && \
 	yarn cache clean
 
