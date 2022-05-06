@@ -17,18 +17,13 @@ build-dep:
   stage: build-dep
   script:
     - docker pull "$CI_REGISTRY_IMAGE:build-dep"
-    - docker buildx build --push --platform linux/arm64/v8 --target build-dep -t "$CI_REGISTRY_IMAGE:build-dep" .
-
-build-master:
-  stage: build
-  script:
-    - docker buildx build --push --platform linux/arm64/v8 -t "$CI_REGISTRY_IMAGE" .
+    - docker buildx build --push --platform linux/arm64/v8 --target build-dep -t "$CI_REGISTRY_IMAGE:build-dep" --cache-from "type=registry,ref=$CI_REGISTRY_IMAGE:build-dep-cache" --cache-to "type=registry,ref=$CI_REGISTRY_IMAGE:build-dep-cache,mode=max" .
   only:
     - master
 
 build:
   stage: build
   script:
-    - docker buildx build --push --platform linux/arm64/v8 -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" .
-  except:
+    - docker buildx build --push --platform linux/arm64/v8 -t "$CI_REGISTRY_IMAGE" --cache-from "type=registry,ref=$CI_REGISTRY_IMAGE:cache" --cache-to "type=registry,ref=$CI_REGISTRY_IMAGE:cache,mode=max"  .
+  only:
     - master
