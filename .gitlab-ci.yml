@@ -24,6 +24,6 @@ build-dep:
 build:
   stage: build
   script:
-    - docker buildx build --push --platform linux/arm64/v8 -t "$CI_REGISTRY_IMAGE" --cache-from "type=registry,ref=$CI_REGISTRY_IMAGE:cache" --cache-to "type=registry,ref=$CI_REGISTRY_IMAGE:cache,mode=max"  .
+    - docker buildx build --push --platform linux/arm64/v8 --target release -t "$CI_REGISTRY_IMAGE" --cache-from "type=registry,ref=$CI_REGISTRY_IMAGE:cache" --cache-to "type=registry,ref=$CI_REGISTRY_IMAGE:cache,mode=max"  .
   only:
     - master
