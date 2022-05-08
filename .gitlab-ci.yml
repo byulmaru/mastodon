@@ -16,7 +16,6 @@ stages:
 build-dep:
   stage: build-dep
   script:
-    - docker pull "$CI_REGISTRY_IMAGE:build-dep"
     - docker buildx build --push --platform linux/arm64/v8 --target build-dep -t "$CI_REGISTRY_IMAGE:build-dep" --cache-from "type=registry,ref=$CI_REGISTRY_IMAGE:build-dep-cache" --cache-to "type=registry,ref=$CI_REGISTRY_IMAGE:build-dep-cache,mode=max" .
   only:
     - master
