@@ -18,9 +18,15 @@ class StatusesIndex < Chewy::Index
         language: 'possessive_english',
       },
     },
+    tokenizer: {
+        nori_user_dict: {
+            type: 'nori_tokenizer',
+            decompound_mode: 'mixed',
+        },
+    },
     analyzer: {
       content: {
-        tokenizer: 'uax_url_email',
+        tokenizer: 'nori_user_dict',
         filter: %w(
           english_possessive_stemmer
           lowercase
