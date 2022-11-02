@@ -66,8 +66,8 @@ RUN yarn install --frozen-lockfile --network-timeout 1000000
 FROM ubuntu:20.04 as release
 
 # Copy over all the langs needed for runtime
-COPY --from=registry.gitlab.com/byulmaru/mastodon:build-dep /opt/node /opt/node
-COPY --from=registry.gitlab.com/byulmaru/mastodon:build-dep /opt/ruby /opt/ruby
+COPY --from=ghcr.io/byulmaru/mastodon:build-dep /opt/node /opt/node
+COPY --from=ghcr.io/byulmaru/mastodon:build-dep /opt/ruby /opt/ruby
 
 # Add more PATHs to the PATH
 ENV PATH="${PATH}:/opt/ruby/bin:/opt/node/bin:/opt/mastodon/bin"
@@ -98,7 +98,7 @@ RUN apt-get update && \
 
 # Copy over mastodon source, and dependencies from building, and set permissions
 COPY --chown=mastodon:mastodon . /opt/mastodon
-COPY --from=registry.gitlab.com/byulmaru/mastodon:build-dep --chown=mastodon:mastodon /opt/mastodon /opt/mastodon
+COPY --from=ghcr.io/byulmaru/mastodon:build-dep --chown=mastodon:mastodon /opt/mastodon /opt/mastodon
 
 # Run mastodon services in prod mode
 ENV RAILS_ENV="production"
