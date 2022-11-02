@@ -26,7 +26,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          platform: linux/arm64/v8
+          platforms: linux/arm64/v8
           target: release
           push: true
           tags: 'ghcr.io/${{ github.repository }}:latest'
