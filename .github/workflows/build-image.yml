@@ -1,4 +1,4 @@
-name: build-dep
+name: build-image
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-dep:
+  build-image:
     runs-on: ubuntu-latest
     steps:
       - name: Source Code Checkout
