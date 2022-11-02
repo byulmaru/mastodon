@@ -1,4 +1,4 @@
-name: build-dep
+name: build-image
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-dep:
+  build-image:
     runs-on: ubuntu-latest
     steps:
       - name: Source Code Checkout
@@ -27,7 +27,7 @@ jobs:
         with:
           context: .
           platform: linux/arm64
-          target: build-dep
+          target: release
           push: true
           tags: 'ghcr.io/${{ github.repository }}:latest'
           cache-from: 'type=registry,ref=ghcr.io/${{ github.repository }}:latest'
