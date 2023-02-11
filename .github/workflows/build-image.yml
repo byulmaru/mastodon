@@ -32,7 +32,6 @@ jobs:
         with:
           context: .
           platforms: linux/arm64/v8
-          target: release
           provenance: false
           builder: ${{ steps.buildx.outputs.name }}
           push: ${{ github.event_name != 'pull_request' }}
