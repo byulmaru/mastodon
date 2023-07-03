@@ -186,7 +186,7 @@ class ActivityPub::Activity::Create < ActivityPub::Activity
     # If we're processing an old status, this may register tags as being used now
     # as opposed to when the status was really published, but this is probably
     # not a big deal
-    Trends.tags.register(status)
+    # Trends.tags.register(status) # 리모트 트렌드는 필요 없음
 
     @mentions.each do |mention|
       mention.status = status
