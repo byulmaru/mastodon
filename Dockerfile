@@ -91,8 +91,8 @@ USER mastodon
 WORKDIR /opt/mastodon
 
 # Precompile assets
-RUN OTP_SECRET=precompile_placeholder SECRET_KEY_BASE=precompile_placeholder rails assets:precompile && \
-    yarn config set network-timeout 1000000 -g && \
+RUN yarn config set network-timeout 1000000 -g && \
+    OTP_SECRET=precompile_placeholder SECRET_KEY_BASE=precompile_placeholder rails assets:precompile && \
     yarn cache clean
 
 # Set the work dir and the container entry point
