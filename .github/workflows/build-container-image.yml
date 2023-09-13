@@ -49,10 +49,10 @@ jobs:
               name: mastodon-docker-builder-arm64-01
               driver-opts:
                 - servername=mastodon-docker-builder-arm64-01
-        #env:
-          #BUILDER_NODE_1_AUTH_TLS_CACERT: ${{ secrets.DOCKER_BUILDER_HETZNER_ARM64_01_CACERT }}
-          #BUILDER_NODE_1_AUTH_TLS_CERT: ${{ secrets.DOCKER_BUILDER_HETZNER_ARM64_01_CERT }}
-          #BUILDER_NODE_1_AUTH_TLS_KEY: ${{ secrets.DOCKER_BUILDER_HETZNER_ARM64_01_KEY }}
+        env:
+          BUILDER_NODE_1_AUTH_TLS_CACERT: ${{ secrets.DOCKER_BUILDER_HETZNER_ARM64_01_CACERT }}
+          BUILDER_NODE_1_AUTH_TLS_CERT: ${{ secrets.DOCKER_BUILDER_HETZNER_ARM64_01_CERT }}
+          BUILDER_NODE_1_AUTH_TLS_KEY: ${{ secrets.DOCKER_BUILDER_HETZNER_ARM64_01_KEY }}
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v2
