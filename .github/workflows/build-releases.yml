@@ -20,6 +20,7 @@ jobs:
       flavor: |
         latest=auto
       tags: |
+        type=schedule,pattern=latest
         type=pep440,pattern={{raw}}
         type=pep440,pattern=v{{major}}.{{minor}}
     secrets: inherit
