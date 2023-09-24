@@ -25,6 +25,11 @@ class StatusesIndex < Chewy::Index
         },
     },
     analyzer: {
+      verbatim: {
+        tokenizer: 'uax_url_email',
+        filter: %w(lowercase),
+      },
+
       content: {
         tokenizer: 'nori_user_dict',
         filter: %w(
