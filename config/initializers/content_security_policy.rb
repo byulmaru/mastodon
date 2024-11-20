@@ -36,11 +36,11 @@ Rails.application.config.content_security_policy do |p|
     front_end_build_urls = %w(ws http).map { |protocol| "#{protocol}#{Webpacker.dev_server.https? ? 's' : ''}://#{webpacker_public_host}" }
 
     p.connect_src :self, :data, :blob, *media_hosts, Rails.configuration.x.streaming_api_base_url, *front_end_build_urls
-    p.script_src  :self, :unsafe_inline, :unsafe_eval, assets_host
+    p.script_src  :self, :unsafe_inline, :unsafe_eval, assets_host, "https://sdk.rdbl.io"
     p.frame_src   :self, :https, :http
   else
     p.connect_src :self, :data, :blob, *media_hosts, Rails.configuration.x.streaming_api_base_url
-    p.script_src  :self, assets_host, "'wasm-unsafe-eval'"
+    p.script_src  :self, assets_host, "'wasm-unsafe-eval'", "https://sdk.rdbl.io"
     p.frame_src   :self, :https
   end
 end
@@ -50,7 +50,7 @@ end
 # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy-Report-Only
 # Rails.application.config.content_security_policy_report_only = true
 
-Rails.application.config.content_security_policy_nonce_generator = ->(_request) { SecureRandom.base64(16) }
+Rails.application.config.content_security_policy_nonce_generator = nil
 
 Rails.application.config.content_security_policy_nonce_directives = %w(style-src)
 

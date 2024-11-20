@@ -36,6 +36,8 @@
 
     = stylesheet_link_tag custom_css_path, skip_pipeline: true, host: root_url, media: 'all'
 
+    = javascript_include_tag "https://sdk.rdbl.io/script.js", defer: true, "data-site-id": "S0PZU4TTE511"
+
     = yield :header_tags
 
   %body{ class: body_classes }
