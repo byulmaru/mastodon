@@ -170,7 +170,7 @@ class PreviewCard < ApplicationRecord
   private
 
   def serialized_authors
-    if author_name? || author_url? || author_account_id?
+    if author_name? || author_url?
       PreviewCard::Author
         .new(self)
     end
