@@ -154,19 +154,14 @@ jobs:
           tags: ${{ inputs.tags }}
           labels: ${{ inputs.labels }}
 
-      - uses: docker/build-push-action@v6
-        with:
-          context: .
-          file: ${{ inputs.file_to_build }}
-          build-args: |
-            MASTODON_VERSION_PRERELEASE=${{ inputs.version_prerelease }}
-            MASTODON_VERSION_METADATA=${{ inputs.version_metadata }}
-          platforms: ${{ inputs.platforms }}
-          provenance: false
-          builder: ${{ steps.buildx.outputs.name || steps.buildx-native.outputs.name }}
-          push: ${{ inputs.push_to_images != '' }}
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-          cache-from: ${{ inputs.cache && 'type=gha' || '' }}
-          cache-to: ${{ inputs.cache && 'type=gha,mode=max' || '' }}
-          no-cache-filters: ${{ inputs.cache && inputs.no_cache_filters || '' }}
+      - name: Create manifest list and push
+        working-directory: ${{ runner.temp }}/digests
+        run: |
+          echo "$PUSH_TO_IMAGES" | xargs -I{} \
+            docker buildx imagetools create $(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "$DOCKER_METADATA_OUTPUT_JSON") \
+              $(printf '{}@sha256:%s ' *)
+
+      - name: Inspect image
+        run: |
+          echo "$PUSH_TO_IMAGES" | xargs -i{} \
+            docker buildx imagetools inspect {}:${{ steps.meta.outputs.version }}
