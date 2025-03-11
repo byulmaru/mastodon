@@ -36,7 +36,7 @@ jobs:
           - linux/arm64
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           submodules: recursive
 
@@ -53,12 +53,20 @@ jobs:
       - uses: docker/setup-buildx-action@v3
         id: buildx
 
+      - name: Log in to Docker Hub
+        if: contains(inputs.push_to_images, 'tootsuite')
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
       - name: Log in to the GitHub Container registry
+        if: contains(inputs.push_to_images, 'ghcr.io')
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ github.token }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Docker meta
         id: meta
@@ -115,8 +123,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: recursive
 
       - name: Download digests
         uses: actions/download-artifact@v4
