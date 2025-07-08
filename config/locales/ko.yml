@@ -2120,6 +2120,7 @@ ko:
     title: "%{domain} 도메인의 이용 약관에 변경 있음"
   themes:
     default: Mastodon
+    bird-ui: Bird UI
   time:
     formats:
       default: "%Y-%m-%d %H:%M"

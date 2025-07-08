@@ -2197,6 +2197,7 @@ en:
     title: The terms of service of %{domain} are changing
   themes:
     default: Mastodon
+    bird-ui: Bird UI
   time:
     formats:
       default: "%b %d, %Y, %H:%M"
