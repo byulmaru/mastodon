@@ -1965,6 +1965,9 @@ ko:
     default: 마스토돈 (어두움)
     mastodon-light: 마스토돈 (밝음)
     system: 자동 (시스템 테마 사용)
+    bird-ui: Bird UI (어두움)
+    bird-ui-light: Bird UI (밝음)
+    bird-ui-high-contrast: Bird UI (고대비)
   time:
     formats:
       default: "%Y-%m-%d %H:%M"

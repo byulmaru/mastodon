@@ -20,7 +20,12 @@ class StatusesIndex < Chewy::Index
         language: 'possessive_english',
       },
     },
-
+    tokenizer: {
+        nori_user_dict: {
+            type: 'nori_tokenizer',
+            decompound_mode: 'mixed',
+        },
+    },
     analyzer: {
       verbatim: {
         tokenizer: 'uax_url_email',
@@ -28,7 +33,7 @@ class StatusesIndex < Chewy::Index
       },
 
       content: {
-        tokenizer: 'standard',
+        tokenizer: 'nori_user_dict',
         filter: %w(
           lowercase
           asciifolding

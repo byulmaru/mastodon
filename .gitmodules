@@ -1,0 +1,3 @@
+[submodule "app/javascript/styles/mastodon-bird-ui"]
+	path = app/javascript/styles/mastodon-bird-ui
+	url = https://github.com/ronilaukkarinen/mastodon-bird-ui.git
