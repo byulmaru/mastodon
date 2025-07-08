@@ -18,6 +18,8 @@ on:
         type: string
       file_to_build:
         type: string
+      no_cache_filters:
+        type: string
 
 # This builds multiple images with one runner each, allowing us to build for multiple architectures
 # using Github's runners.
@@ -26,16 +28,17 @@ on:
 jobs:
   # Build each (amd64 and arm64) image separately
   build-image:
-    runs-on: ${{ startsWith(matrix.platform, 'linux/arm') && 'ubuntu-24.04-arm' || 'ubuntu-24.04' }}
+    runs-on: 'ubuntu-24.04-arm'
     strategy:
       fail-fast: false
       matrix:
         platform:
-          - linux/amd64
           - linux/arm64
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
       - name: Prepare
         env:

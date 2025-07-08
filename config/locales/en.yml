@@ -2008,6 +2008,9 @@ en:
     default: Mastodon (Dark)
     mastodon-light: Mastodon (Light)
     system: Automatic (use system theme)
+    bird-ui: Bird UI (Dark)
+    bird-ui-light: Bird UI (Light)
+    bird-ui-high-contrast: Bird UI (High contrast)
   time:
     formats:
       default: "%b %d, %Y, %H:%M"
