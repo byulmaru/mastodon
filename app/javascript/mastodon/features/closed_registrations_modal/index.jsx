@@ -65,10 +65,10 @@ class ClosedRegistrationsModal extends ImmutablePureComponent {
             <p className='prose'>
               <FormattedMessage
                 id='closed_registrations_modal.kosmo_description'
-                defaultMessage='Discover Kosmo, a new social network from Planet for fans of doujin culture.'
+                defaultMessage='Discover Kosmo, a new Fediverse social network from Planet for fans of doujin culture.'
               />
             </p>
-            <a href='https://kos.moe/login' className='button button--block'><FormattedMessage id='closed_registrations_modal.kosmo_sign_up' defaultMessage='Sign up for Kosmo' /></a>
+            <a href='https://kos.moe/?utm_source=planet&utm_medium=referral&utm_campaign=signup_modal' className='button button--block'><FormattedMessage id='closed_registrations_modal.kosmo_sign_up' defaultMessage='Sign up for Kosmo' /></a>
           </div>
         </div>
       </div>
